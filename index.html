@@ -158,35 +158,90 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-JavaScript—原型及原型链" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-JavaScript-隐式转换" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/post/3df9ef53.html">JavaScript——原型及原型链</a>
+      <a class="article-title" href="/post/03.html">JavaScript-隐式转换相关</a>
     </h1>
   
 
         
-        <a href="/post/3df9ef53.html" class="archive-article-date">
-  	<time datetime="2019-01-20T03:43:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-20</time>
+        <a href="/post/03.html" class="archive-article-date">
+  	<time datetime="2019-04-04T17:00:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一、对象的等级划分"><a href="#一、对象的等级划分" class="headerlink" title="一、对象的等级划分"></a>一、对象的等级划分</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Object：所有对象都是直接或间接的通过它衍生的。</span></span><br><span class="line"><span class="built_in">Object</span> &gt; <span class="built_in">Function</span> &gt; <span class="built_in">String</span>/<span class="built_in">Array</span>/<span class="built_in">Date</span>/<span class="built_in">Number</span>/<span class="built_in">Boolean</span>/<span class="built_in">Math</span>(内建对象)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Math属于一个工具对象，不可通过new关键字来创建实例</span></span><br></pre></td></tr></table></figure>
-<h2 id="二、-proto-和prototype"><a href="#二、-proto-和prototype" class="headerlink" title="二、__proto__和prototype"></a>二、<code>__proto__</code>和<code>prototype</code></h2><p><code>__proto__</code>是一个指针，是对象才会具有的一个属性，指向构造它的对象的<code>prototype</code>，如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person(<span class="string">'小明'</span>)</span><br><span class="line">p.__proto__ == Person.prototype <span class="comment">// =&gt; true</span></span><br></pre></td></tr></table></figure>
-<p>原型的意义在于，当对象在访问自身属性或者方法时，首先会从自身去寻找，如果找不到则会通过原型链去去查找，也就是构造函数的<code>prototype</code>上去找。</p>
-<p>首先<code>prototype</code>是一个属性，同时也是一个对象，<code>javascript</code>中的所有函数都具有<code>prototype</code>属性，反过来所有具有<code>prototype</code>的对象本身也是一个函数。</p>
-<p>所有的内建对象以及Object的<code>__proto</code>指向都是一个匿名函数，可以认为其实他们是<code>funtion</code>的一个实例。</p>
-<p>以下是原型及其原型链关系图，参考：</p>
-<p><img src="https://images2015.cnblogs.com/blog/672484/201510/672484-20151002201901996-1935842029.png" alt="图片"></p>
-
+        <h2 id="Before-article"><a href="#Before-article" class="headerlink" title="Before article"></a>Before article</h2><ul>
+<li>At the begining of this, i got a few questions to ask , if u write down all answers compared to the correct at the end of this article. then you decide if you keep reading.<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">10</span> &amp;&amp; <span class="number">0</span>); </span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'0'</span> == <span class="literal">true</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="string">'0'</span>)); </span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">0</span>));</span><br><span class="line"><span class="built_in">console</span>.log([] == <span class="literal">false</span>)</span><br><span class="line"><span class="built_in">console</span>.log(![] == <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="The-main-part"><a href="#The-main-part" class="headerlink" title="The main part"></a>The main part</h2><ul>
+<li><p><strong>在转换不同的的数据类型时 相等于不等操作符号遵循以下规则</strong></p>
+<ol>
+<li>层级关系 对象 -&gt; 字符串 -&gt; 布尔值 -&gt; 数值<ul>
+<li>eg. [] == false 对象先转为 ‘’ == false =&gt; 没法作对比 往下走  0 == false =&gt; 0 == 0 ok</li>
+<li>![] == false 前面多了一个！ 那么他们直接以boolean值的形式比较 []为一个对象 布尔值为true 取反则为false</li>
+</ul>
+</li>
+<li>if Boolean vs Other，则在比较之前先将Boolean转为数值类型 eg.true =&gt; 1 , false =&gt; 0</li>
+<li>if String vs Number , 则在比较之前先String转为数值类型  eg.’123’ =&gt; 123<ul>
+<li>(‘123’) =&gt; 123 </li>
+<li>(‘a123’) =&gt; NaN</li>
+<li>(‘1.1’) =&gt; 1.1</li>
+</ul>
+</li>
+<li>if Object vs Other , 则在比较之前先调用对象valueOf(),得到基本类型再按照上面规则比较</li>
+<li>NaN与任何值都不相等，包括自身 eg.NaN === NaN  =&gt; false</li>
+<li>一些需要识记的<ul>
+<li>undefined == null //true undefined和null 比较返回true，二者和其他值比较返回false</li>
+<li>Number(null) //0</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>Notes:发生隐式转换的其他情况</strong><ul>
+<li>使用运算符的情况<ul>
+<li>加号运算符 String类型与其他类型，其他类型都会转为String类型,<ul>
+<li>eg. ‘123’ + 1  =&gt; 1231   NaN + ‘123’ =&gt; NaN123 null、undefined同样如此</li>
+</ul>
+</li>
+<li>减号 数值类型的会转为对应数字 null undefined 转为 0， 与NaN作减的都是NaN <ul>
+<li>eg. 1-null= 1 1-undefined = NaN 1 + true = 2 1 - true = 0</li>
+<li>undefined 转换为数字类型过程中为NaN true =&gt; 1,false =&gt; 0</li>
+</ul>
+</li>
+<li>乘除  <ul>
+<li>任何类型与NaN乘除都是NaN </li>
+<li>数字类型的字符串转换为相应的数字类型</li>
+<li>console.log(123/ undefined); // NaN  console.log(123/ null); // Infinity</li>
+</ul>
+</li>
+<li>使用关系运算符<ul>
+<li>1.String vs number  =&gt; eg. console.log(‘2’ &gt; 2) // false  数字类型字符串先转为数字 再进行比较  其他类型比较都是false eg.console.log(‘a123’ &gt; 3) //  false</li>
+<li>2.String vs String  =&gt; 同时转为number类型然后比较 按照字符串的unicode编码来转数字<br>str.charCodeAt() =&gt; 可以查看当前字符串的unicode编码<br>eg. console.log(‘a’.charCodeAt()) =&gt; 97 console.log(‘b’.charCodeAt()) =&gt; 98  console.log(‘a’ &gt; ‘b’) =&gt; false  console.log(‘abc’ &gt; ‘adc’) =&gt; 相等继续往下 直到出结果 false b &lt;  d 结果为false<br> console.log(‘2’ &gt; ‘10’) // true 50&gt; 49</li>
+<li>复杂数据类型转number顺序如下：<ul>
+<li>1.先使用valueOf()方法获取其原始值，如果原始值不是number类型，则使用toString()方法转为string</li>
+<li>2.再将string转为number类型</li>
+<li>eg. var obj = {} obj.valueOf().toString() // [object Object]  let arr = [1,2] arr.valueOf().toString() // ’1，2‘</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="End-of-this-article"><a href="#End-of-this-article" class="headerlink" title="End of this article"></a>End of this article</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">10</span> &amp;&amp; <span class="number">0</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'0'</span> == <span class="literal">true</span>);  <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="string">'0'</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">0</span>)); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log([] == <span class="literal">false</span>) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(![] == <span class="literal">false</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
       
 
       
@@ -194,11 +249,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/post/3df9ef53.html">展开全文 >></a>
+          <a class="article-more-a" href="/post/03.html">展开全文 >></a>
         </p>
       
 
@@ -228,20 +294,20 @@
 
 
   
-    <article id="post-JavaScript—闭包" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-JavaScript-闭包" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/post/53a5ea7a.html">JavaScript——闭包</a>
+      <a class="article-title" href="/post/2.html">JavaScript——闭包</a>
     </h1>
   
 
         
-        <a href="/post/53a5ea7a.html" class="archive-article-date">
-  	<time datetime="2019-01-19T17:00:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-20</time>
+        <a href="/post/2.html" class="archive-article-date">
+  	<time datetime="2019-03-09T17:00:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
 </a>
         
       </header>
@@ -283,11 +349,103 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/post/53a5ea7a.html">展开全文 >></a>
+          <a class="article-more-a" href="/post/2.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JavaScript-原型及原型链" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/post/1.html">JavaScript——原型及原型链</a>
+    </h1>
+  
+
+        
+        <a href="/post/1.html" class="archive-article-date">
+  	<time datetime="2019-01-20T03:43:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、对象的等级划分"><a href="#一、对象的等级划分" class="headerlink" title="一、对象的等级划分"></a>一、对象的等级划分</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Object：所有对象都是直接或间接的通过它衍生的。</span></span><br><span class="line"><span class="built_in">Object</span> &gt; <span class="built_in">Function</span> &gt; <span class="built_in">String</span>/<span class="built_in">Array</span>/<span class="built_in">Date</span>/<span class="built_in">Number</span>/<span class="built_in">Boolean</span>/<span class="built_in">Math</span>(内建对象)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Math属于一个工具对象，不可通过new关键字来创建实例</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、-proto-和prototype"><a href="#二、-proto-和prototype" class="headerlink" title="二、__proto__和prototype"></a>二、<code>__proto__</code>和<code>prototype</code></h2><p><code>__proto__</code>是一个指针，是对象才会具有的一个属性，指向构造它的对象的<code>prototype</code>，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person(<span class="string">'Ares'</span>)</span><br><span class="line">p.__proto__ == Person.prototype <span class="comment">// =&gt; true</span></span><br></pre></td></tr></table></figure>
+<p>原型的意义在于，当对象在访问自身属性或者方法时，首先会从自身去寻找，如果找不到则会通过原型链去去查找，也就是构造函数的<code>prototype</code>上去找。</p>
+<p>首先<code>prototype</code>是一个属性，同时也是一个对象，<code>javascript</code>中的所有函数都具有<code>prototype</code>属性，反过来所有具有<code>prototype</code>的对象本身也是一个函数。</p>
+<p>所有的内建对象以及Object的<code>__proto</code>指向都是一个匿名函数，可以认为其实他们是<code>funtion</code>的一个实例。</p>
+<p>以下是原型及其原型链关系图，参考：</p>
+<p><img src="https://images2015.cnblogs.com/blog/672484/201510/672484-20151002201901996-1935842029.png" alt="图片"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/post/1.html">展开全文 >></a>
         </p>
       
 
@@ -408,6 +566,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
