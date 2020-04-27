@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="">
-  <title>JavaScript-隐式转换相关 | Ares&#39;s Bio</title>
+  <title>Vuex中的辅助函数使用（mapState、mapGetters、mapMutations、mapActions） | Ares&#39;s Bio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Before article At the begining of this, i got a few questions to ask , if u write down all answers compared to the correct at the end of this article. then you decide if you keep reading.123456console">
-<meta name="keywords" content="javascript">
+  <meta name="description" content="Note：以下测试以uni-app为例12345678910111213141516171819202122232425262728293031const store = new Vuex.Store(&amp;#123;    state: &amp;#123;        nickname: &apos;Ares&apos;,        todos: [&amp;#123;id:1,done:true &amp;#125;,&amp;#123;i">
+<meta name="keywords" content="vue vuex 辅助函数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript-隐式转换相关">
-<meta property="og:url" content="/post/03.html">
+<meta property="og:title" content="Vuex中的辅助函数使用（mapState、mapGetters、mapMutations、mapActions）">
+<meta property="og:url" content="/post/5.html">
 <meta property="og:site_name" content="Ares&#39;s Bio">
-<meta property="og:description" content="Before article At the begining of this, i got a few questions to ask , if u write down all answers compared to the correct at the end of this article. then you decide if you keep reading.123456console">
+<meta property="og:description" content="Note：以下测试以uni-app为例12345678910111213141516171819202122232425262728293031const store = new Vuex.Store(&amp;#123;    state: &amp;#123;        nickname: &apos;Ares&apos;,        todos: [&amp;#123;id:1,done:true &amp;#125;,&amp;#123;i">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2020-04-06T08:47:29.856Z">
+<meta property="og:updated_time" content="2020-04-27T14:09:36.446Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript-隐式转换相关">
-<meta name="twitter:description" content="Before article At the begining of this, i got a few questions to ask , if u write down all answers compared to the correct at the end of this article. then you decide if you keep reading.123456console">
+<meta name="twitter:title" content="Vuex中的辅助函数使用（mapState、mapGetters、mapMutations、mapActions）">
+<meta name="twitter:description" content="Note：以下测试以uni-app为例12345678910111213141516171819202122232425262728293031const store = new Vuex.Store(&amp;#123;    state: &amp;#123;        nickname: &apos;Ares&apos;,        todos: [&amp;#123;id:1,done:true &amp;#125;,&amp;#123;i">
   
     <link rel="alternative" href="/atom.xml" title="Ares&#39;s Bio" type="application/atom+xml">
   
@@ -157,90 +157,41 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JavaScript-隐式转换" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Vuex-辅助函数" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JavaScript-隐式转换相关
+      Vuex中的辅助函数使用（mapState、mapGetters、mapMutations、mapActions）
     </h1>
   
 
         
-        <a href="/post/03.html" class="archive-article-date">
-  	<time datetime="2019-04-04T17:00:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-05</time>
+        <a href="/post/5.html" class="archive-article-date">
+  	<time datetime="2020-03-20T14:43:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Before-article"><a href="#Before-article" class="headerlink" title="Before article"></a>Before article</h2><ul>
-<li>At the begining of this, i got a few questions to ask , if u write down all answers compared to the correct at the end of this article. then you decide if you keep reading.<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">10</span> &amp;&amp; <span class="number">0</span>); </span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'0'</span> == <span class="literal">true</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="string">'0'</span>)); </span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">0</span>));</span><br><span class="line"><span class="built_in">console</span>.log([] == <span class="literal">false</span>)</span><br><span class="line"><span class="built_in">console</span>.log(![] == <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="The-main-part"><a href="#The-main-part" class="headerlink" title="The main part"></a>The main part</h2><ul>
-<li><p><strong>在转换不同的的数据类型时 相等于不等操作符号遵循以下规则</strong></p>
-<ol>
-<li>层级关系 对象 -&gt; 字符串 -&gt; 布尔值 -&gt; 数值<ul>
-<li>eg. [] == false 对象先转为 ‘’ == false =&gt; 没法作对比 往下走  0 == false =&gt; 0 == 0 ok</li>
-<li>![] == false 前面多了一个！ 那么他们直接以boolean值的形式比较 []为一个对象 布尔值为true 取反则为false</li>
-</ul>
-</li>
-<li>if Boolean vs Other，则在比较之前先将Boolean转为数值类型 eg.true =&gt; 1 , false =&gt; 0</li>
-<li>if String vs Number , 则在比较之前先String转为数值类型  eg.’123’ =&gt; 123<ul>
-<li>(‘123’) =&gt; 123 </li>
-<li>(‘a123’) =&gt; NaN</li>
-<li>(‘1.1’) =&gt; 1.1</li>
-</ul>
-</li>
-<li>if Object vs Other , 则在比较之前先调用对象valueOf(),得到基本类型再按照上面规则比较</li>
-<li>NaN与任何值都不相等，包括自身 eg.NaN === NaN  =&gt; false</li>
-<li>一些需要识记的<ul>
-<li>undefined == null //true undefined和null 比较返回true，二者和其他值比较返回false</li>
-<li>Number(null) //0</li>
+        <h3 id="Note：以下测试以uni-app为例"><a href="#Note：以下测试以uni-app为例" class="headerlink" title="Note：以下测试以uni-app为例"></a>Note：以下测试以uni-app为例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        nickname: <span class="string">'Ares'</span>,</span><br><span class="line">        todos: [&#123;<span class="attr">id</span>:<span class="number">1</span>,<span class="attr">done</span>:<span class="literal">true</span> &#125;,&#123;<span class="attr">id</span>:<span class="number">2</span>,<span class="attr">done</span>:<span class="literal">false</span>&#125;],</span><br><span class="line">        count: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    mutations:&#123;</span><br><span class="line">        increase(state,payload) &#123;</span><br><span class="line">            state.count += payload.step</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    actions: &#123;</span><br><span class="line">        add(&#123; commit&#125;,  payload) &#123;</span><br><span class="line">            commit(<span class="string">'increase'</span>,payload)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    getters: &#123;</span><br><span class="line">        doneTodos: <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> state.todos.filter(<span class="function"><span class="params">todo</span> =&gt;</span> todo.done)</span><br><span class="line">        &#125;,</span><br><span class="line">        getTodoById: <span class="function"><span class="params">state</span> =&gt;</span> (id) =&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> state.todos.find(<span class="function"><span class="params">todo</span> =&gt;</span> todo.id === id)</span><br><span class="line">        &#125;,</span><br><span class="line">        testDemo() &#123;</span><br><span class="line">           uni.showToast(title: <span class="string">'123'</span>) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建了一个中央仓库，其中数据为各个实例组件公用 store已挂载到vue的原型之上</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.State</span></span><br><span class="line">    a.直接获取</span><br><span class="line">        computed: &#123;</span><br><span class="line">          nickname() &#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="keyword">this</span>.$store.state.nickname</span><br><span class="line">          &#125;  </span><br><span class="line">        &#125;,</span><br><span class="line">    b.使用mapState辅助函数</span><br><span class="line">        <span class="keyword">import</span> &#123; mapState &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line">        computed: mapState(&#123;</span><br><span class="line">            nickname: <span class="function"><span class="params">state</span> =&gt;</span> state.nickname, <span class="comment">// 方式1</span></span><br><span class="line">            nickAlias: <span class="string">'nickname'</span>, <span class="comment">// 方式2</span></span><br><span class="line">            countPlusLocalState(state) &#123; <span class="comment">// 若需要与本页面的数据操作的话</span></span><br><span class="line">                <span class="keyword">return</span> state.name + <span class="keyword">this</span>.localName</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;),</span><br><span class="line">        Or</span><br><span class="line">        computed: &#123;</span><br><span class="line">            localComputed() &#123; <span class="comment">// 自定义本页面需要的其他属性</span></span><br><span class="line">                <span class="keyword">return</span> <span class="string">'Ares'</span></span><br><span class="line">            &#125;,</span><br><span class="line">            ...mapState(&#123;</span><br><span class="line">                nickname: <span class="function"><span class="params">state</span> =&gt;</span> state.nickname,</span><br><span class="line">                nickAlias: <span class="string">'nickname'</span></span><br><span class="line">            &#125;) </span><br><span class="line">            Or</span><br><span class="line">            ...mapState([ <span class="comment">// 若键值相等</span></span><br><span class="line">                <span class="string">'nickname'</span></span><br><span class="line">            ])</span><br><span class="line">        &#125;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 2.Getters</span></span><br><span class="line">    a.在页面可以直接调用</span><br><span class="line">        <span class="keyword">let</span> ret = <span class="keyword">this</span>.$store.getters.doneTodos <span class="comment">// 以属性的形式而非()</span></span><br><span class="line">        <span class="built_in">console</span>.log(ret)</span><br><span class="line">        <span class="keyword">let</span> ret2 = <span class="keyword">this</span>.$store.getters.getTodoById(<span class="number">2</span>) <span class="comment">// 传参情况</span></span><br><span class="line">        <span class="built_in">console</span>.log(ret2)</span><br><span class="line">        <span class="keyword">this</span>.$store.getters.testDemo() <span class="comment">// 报错 testDemo is not a function,但是会逻辑执行了</span></span><br><span class="line">        <span class="keyword">this</span>.$store.getters.testDemo <span class="comment">// 正确调用方式  vuex将getters里面的函数对外暴露为一个属性，而不是一个方法</span></span><br><span class="line">    b.使用mapGetters辅助函数</span><br><span class="line">        <span class="keyword">import</span> &#123; mapGetters &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line">        computed: &#123;</span><br><span class="line">            ...mapGetters(&#123;</span><br><span class="line">               doneTodos: <span class="string">'doneTodos'</span>,</span><br><span class="line">               otherGetter: <span class="string">'other'</span> <span class="comment">// 不一定要相同</span></span><br><span class="line">            &#125;)</span><br><span class="line">            Or</span><br><span class="line">            ...mapGetters([</span><br><span class="line">                <span class="string">'doneTodos'</span>,</span><br><span class="line">                <span class="string">'other'</span></span><br><span class="line">            ])</span><br><span class="line">        &#125;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3.Mutations</span></span><br><span class="line">    As the official says that committing a mutation is the only way to actually change state <span class="keyword">in</span> a Vuex store</span><br><span class="line">    a.通常情况使用</span><br><span class="line">        methods: &#123;</span><br><span class="line">           handleClick() &#123;</span><br><span class="line">               <span class="keyword">this</span>.$store.commit(<span class="string">'increase'</span>,&#123; <span class="attr">step</span>: <span class="number">10</span> &#125;)</span><br><span class="line">           &#125;,</span><br><span class="line">           Or</span><br><span class="line">           handleClick() &#123;</span><br><span class="line">               <span class="keyword">this</span>.$store.commit(&#123;</span><br><span class="line">                   type: <span class="string">'increase'</span>,</span><br><span class="line">                   step: <span class="number">10</span></span><br><span class="line">               &#125;)</span><br><span class="line">           &#125;  </span><br><span class="line">        &#125;,</span><br><span class="line">     b.使用mapMutations</span><br><span class="line">         <span class="keyword">import</span> &#123; mapMutations &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line">         methods: &#123;</span><br><span class="line">             <span class="comment">// 方式1</span></span><br><span class="line">             ...mapMutations(&#123;</span><br><span class="line">                add: <span class="string">'increase'</span> </span><br><span class="line">             &#125;),</span><br><span class="line">             <span class="comment">// 方式2</span></span><br><span class="line">             ...mapMutations([</span><br><span class="line">                 <span class="string">'increase'</span></span><br><span class="line">             ]),</span><br><span class="line">             handleClick() &#123;</span><br><span class="line">                 <span class="comment">// 方式1的调用</span></span><br><span class="line">                 <span class="keyword">this</span>.add(&#123; <span class="attr">step</span>: <span class="number">10</span>&#125; )</span><br><span class="line">                 </span><br><span class="line">                 <span class="comment">// 方式2的调用</span></span><br><span class="line">                 <span class="keyword">this</span>.increase(&#123; <span class="attr">step</span>: <span class="number">10</span> &#125;)</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 4.Actions</span></span><br><span class="line">    a.通常情况下使用</span><br><span class="line">        methods: &#123;</span><br><span class="line">            handleClick() &#123;</span><br><span class="line">                <span class="comment">// 派发一个action  由action在commit一个mutations</span></span><br><span class="line">                <span class="keyword">this</span>.$store.dispatch(<span class="string">'add'</span>,&#123; <span class="attr">step</span>: <span class="number">10</span> &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">            Or</span><br><span class="line">             handleClick() &#123;</span><br><span class="line">                <span class="comment">// 派发一个action</span></span><br><span class="line">                <span class="keyword">this</span>.$store.dispatch(&#123;</span><br><span class="line">                    type: <span class="string">'add'</span>,</span><br><span class="line">                    step: <span class="number">10</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, </span><br><span class="line">    b.使用mapActions</span><br><span class="line">        <span class="keyword">import</span> &#123; mapActions &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line">        methods: &#123;</span><br><span class="line">           <span class="comment">// 方式1 </span></span><br><span class="line">           ...mapActions([</span><br><span class="line">               <span class="string">'add'</span></span><br><span class="line">           ]),</span><br><span class="line">           <span class="comment">// 方式2</span></span><br><span class="line">           ...mapActions(&#123;</span><br><span class="line">               add: <span class="string">'add'</span></span><br><span class="line">           &#125;),</span><br><span class="line">           <span class="comment">// 调用方式通上     </span></span><br><span class="line">        &#125;,</span><br></pre></td></tr></table></figure>
+<h6 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h6><ol>
+<li>mapState映射state，mapGetter映射属性，两者写在computed中</li>
+<li>mapMutations mapActions映射方法事件，两者写在methods中 </li>
+<li>mutations与actions的区别是什么？<ul>
+<li>actions不改变状态，而是提交一个mutation</li>
+<li>actions可以包含任意的异步操作，而mutation中必须是同步的     </li>
 </ul>
 </li>
 </ol>
-<ul>
-<li><strong>Notes:发生隐式转换的其他情况</strong><ul>
-<li>使用运算符的情况<ul>
-<li>加号运算符 String类型与其他类型，其他类型都会转为String类型,<ul>
-<li>eg. ‘123’ + 1  =&gt; 1231   NaN + ‘123’ =&gt; NaN123 null、undefined同样如此</li>
-</ul>
-</li>
-<li>减号 数值类型的会转为对应数字 null undefined 转为 0， 与NaN作减的都是NaN <ul>
-<li>eg. 1-null= 1 1-undefined = NaN 1 + true = 2 1 - true = 0</li>
-<li>undefined 转换为数字类型过程中为NaN true =&gt; 1,false =&gt; 0</li>
-</ul>
-</li>
-<li>乘除  <ul>
-<li>任何类型与NaN乘除都是NaN </li>
-<li>数字类型的字符串转换为相应的数字类型</li>
-<li>console.log(123/ undefined); // NaN  console.log(123/ null); // Infinity</li>
-</ul>
-</li>
-<li>使用关系运算符<ul>
-<li>1.String vs number  =&gt; eg. console.log(‘2’ &gt; 2) // false  数字类型字符串先转为数字 再进行比较  其他类型比较都是false eg.console.log(‘a123’ &gt; 3) //  false</li>
-<li>2.String vs String  =&gt; 同时转为number类型然后比较 按照字符串的unicode编码来转数字<br>str.charCodeAt() =&gt; 可以查看当前字符串的unicode编码<br>eg. console.log(‘a’.charCodeAt()) =&gt; 97 console.log(‘b’.charCodeAt()) =&gt; 98  console.log(‘a’ &gt; ‘b’) =&gt; false  console.log(‘abc’ &gt; ‘adc’) =&gt; 相等继续往下 直到出结果 false b &lt;  d 结果为false<br> console.log(‘2’ &gt; ‘10’) // true 50&gt; 49</li>
-<li>复杂数据类型转number顺序如下：<ul>
-<li>1.先使用valueOf()方法获取其原始值，如果原始值不是number类型，则使用toString()方法转为string</li>
-<li>2.再将string转为number类型</li>
-<li>eg. var obj = {} obj.valueOf().toString() // [object Object]  let arr = [1,2] arr.valueOf().toString() // ’1，2‘</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="End-of-this-article"><a href="#End-of-this-article" class="headerlink" title="End of this article"></a>End of this article</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">10</span> &amp;&amp; <span class="number">0</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'0'</span> == <span class="literal">true</span>);  <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="string">'0'</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">0</span>)); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log([] == <span class="literal">false</span>) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(![] == <span class="literal">false</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -279,7 +230,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue vuex 辅助函数</a>
         		</li>
       		
 		</ul>
@@ -335,7 +286,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http:/post/03.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http:/post/5.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -349,18 +300,9 @@
   
 <nav id="article-nav">
   
-    <a href="/post/4.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Shortcuts-Desc
-        
-      </div>
-    </a>
   
-  
-    <a href="/post/2.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JavaScript——闭包</div>
+    <a href="/post/4.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Shortcuts-Desc</div>
       <i class="icon-circle-right"></i>
     </a>
   

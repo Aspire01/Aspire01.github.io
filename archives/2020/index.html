@@ -6,20 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="">
-  <title>JavaScript-隐式转换相关 | Ares&#39;s Bio</title>
+  <title>Archives: 2020 | Ares&#39;s Bio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Before article At the begining of this, i got a few questions to ask , if u write down all answers compared to the correct at the end of this article. then you decide if you keep reading.123456console">
-<meta name="keywords" content="javascript">
-<meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript-隐式转换相关">
-<meta property="og:url" content="/post/03.html">
+  <meta name="description" content="IT 大前端 gendtle coder">
+<meta name="keywords" content="Ares 、bio">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ares&#39;s Bio">
+<meta property="og:url" content="/archives/2020/index.html">
 <meta property="og:site_name" content="Ares&#39;s Bio">
-<meta property="og:description" content="Before article At the begining of this, i got a few questions to ask , if u write down all answers compared to the correct at the end of this article. then you decide if you keep reading.123456console">
+<meta property="og:description" content="IT 大前端 gendtle coder">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2020-04-06T08:47:29.856Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript-隐式转换相关">
-<meta name="twitter:description" content="Before article At the begining of this, i got a few questions to ask , if u write down all answers compared to the correct at the end of this article. then you decide if you keep reading.123456console">
+<meta name="twitter:title" content="Ares&#39;s Bio">
+<meta name="twitter:description" content="IT 大前端 gendtle coder">
   
     <link rel="alternative" href="/atom.xml" title="Ares&#39;s Bio" type="application/atom+xml">
   
@@ -157,243 +156,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-JavaScript-隐式转换" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      JavaScript-隐式转换相关
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/post/5.html" class="archive-article-date">
+  	<time datetime="2020-03-20T14:43:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-20</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/post/5.html">Vuex中的辅助函数使用（mapState、mapGetters、mapMutations、mapActions）</a>
     </h1>
   
 
-        
-        <a href="/post/03.html" class="archive-article-date">
-  	<time datetime="2019-04-04T17:00:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Before-article"><a href="#Before-article" class="headerlink" title="Before article"></a>Before article</h2><ul>
-<li>At the begining of this, i got a few questions to ask , if u write down all answers compared to the correct at the end of this article. then you decide if you keep reading.<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">10</span> &amp;&amp; <span class="number">0</span>); </span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'0'</span> == <span class="literal">true</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="string">'0'</span>)); </span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">0</span>));</span><br><span class="line"><span class="built_in">console</span>.log([] == <span class="literal">false</span>)</span><br><span class="line"><span class="built_in">console</span>.log(![] == <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="The-main-part"><a href="#The-main-part" class="headerlink" title="The main part"></a>The main part</h2><ul>
-<li><p><strong>在转换不同的的数据类型时 相等于不等操作符号遵循以下规则</strong></p>
-<ol>
-<li>层级关系 对象 -&gt; 字符串 -&gt; 布尔值 -&gt; 数值<ul>
-<li>eg. [] == false 对象先转为 ‘’ == false =&gt; 没法作对比 往下走  0 == false =&gt; 0 == 0 ok</li>
-<li>![] == false 前面多了一个！ 那么他们直接以boolean值的形式比较 []为一个对象 布尔值为true 取反则为false</li>
-</ul>
-</li>
-<li>if Boolean vs Other，则在比较之前先将Boolean转为数值类型 eg.true =&gt; 1 , false =&gt; 0</li>
-<li>if String vs Number , 则在比较之前先String转为数值类型  eg.’123’ =&gt; 123<ul>
-<li>(‘123’) =&gt; 123 </li>
-<li>(‘a123’) =&gt; NaN</li>
-<li>(‘1.1’) =&gt; 1.1</li>
-</ul>
-</li>
-<li>if Object vs Other , 则在比较之前先调用对象valueOf(),得到基本类型再按照上面规则比较</li>
-<li>NaN与任何值都不相等，包括自身 eg.NaN === NaN  =&gt; false</li>
-<li>一些需要识记的<ul>
-<li>undefined == null //true undefined和null 比较返回true，二者和其他值比较返回false</li>
-<li>Number(null) //0</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><strong>Notes:发生隐式转换的其他情况</strong><ul>
-<li>使用运算符的情况<ul>
-<li>加号运算符 String类型与其他类型，其他类型都会转为String类型,<ul>
-<li>eg. ‘123’ + 1  =&gt; 1231   NaN + ‘123’ =&gt; NaN123 null、undefined同样如此</li>
-</ul>
-</li>
-<li>减号 数值类型的会转为对应数字 null undefined 转为 0， 与NaN作减的都是NaN <ul>
-<li>eg. 1-null= 1 1-undefined = NaN 1 + true = 2 1 - true = 0</li>
-<li>undefined 转换为数字类型过程中为NaN true =&gt; 1,false =&gt; 0</li>
-</ul>
-</li>
-<li>乘除  <ul>
-<li>任何类型与NaN乘除都是NaN </li>
-<li>数字类型的字符串转换为相应的数字类型</li>
-<li>console.log(123/ undefined); // NaN  console.log(123/ null); // Infinity</li>
-</ul>
-</li>
-<li>使用关系运算符<ul>
-<li>1.String vs number  =&gt; eg. console.log(‘2’ &gt; 2) // false  数字类型字符串先转为数字 再进行比较  其他类型比较都是false eg.console.log(‘a123’ &gt; 3) //  false</li>
-<li>2.String vs String  =&gt; 同时转为number类型然后比较 按照字符串的unicode编码来转数字<br>str.charCodeAt() =&gt; 可以查看当前字符串的unicode编码<br>eg. console.log(‘a’.charCodeAt()) =&gt; 97 console.log(‘b’.charCodeAt()) =&gt; 98  console.log(‘a’ &gt; ‘b’) =&gt; false  console.log(‘abc’ &gt; ‘adc’) =&gt; 相等继续往下 直到出结果 false b &lt;  d 结果为false<br> console.log(‘2’ &gt; ‘10’) // true 50&gt; 49</li>
-<li>复杂数据类型转number顺序如下：<ul>
-<li>1.先使用valueOf()方法获取其原始值，如果原始值不是number类型，则使用toString()方法转为string</li>
-<li>2.再将string转为number类型</li>
-<li>eg. var obj = {} obj.valueOf().toString() // [object Object]  let arr = [1,2] arr.valueOf().toString() // ’1，2‘</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="End-of-this-article"><a href="#End-of-this-article" class="headerlink" title="End of this article"></a>End of this article</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">10</span> &amp;&amp; <span class="number">0</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'0'</span> == <span class="literal">true</span>);  <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="string">'0'</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">0</span>)); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log([] == <span class="literal">false</span>) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(![] == <span class="literal">false</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>请作者喝咖啡！<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/wx-pay.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue vuex 辅助函数</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http:/post/03.html" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/post/4.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Shortcuts-Desc
-        
-      </div>
-    </a>
   
   
-    <a href="/post/2.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JavaScript——闭包</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -416,8 +232,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
